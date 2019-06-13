@@ -1,6 +1,9 @@
 
 
-/*Segregate Even and Odd Nodes in Linked List*/
+/*Segregate Even and Odd Nodes in Linked List
+ step 1:- go to last node
+ step 2:- move odd nodes  to end (Order is Maintained)
+ */
 
 #include<cstdio>
 #include<cstdlib>
@@ -58,7 +61,61 @@ int Length(struct node *head)
     return 1 + Length(head -> next);
 }
 
+void Segregate(struct node **head)
+{
+    struct node *last = NULL;
+    struct node *cur = *head;
+    struct node *prev = NULL;
 
+    while (cur ->next) {
+        cur = cur ->next;
+    }
+    last = cur;
+    struct node * new_last = last;
+    cur = *head;
+    
+    
+        while( cur -> data % 2 != 0   && cur != last) // moving all odd nodes to end.
+        {
+            new_last -> next = cur;
+            cur = cur -> next;
+            new_last -> next -> next = NULL;
+            new_last = new_last -> next;
+        }
+        
+        *head = cur; // making first Even Node as Head
+    
+        if(cur -> data %2 == 0) // moving all odd nodes to end which comes after even nodes
+        {
+            cur = *head;
+            while(cur != last)
+            {
+                if(cur -> data %2 == 0){
+                    prev = cur;
+                    cur = cur -> next;
+               }
+                else{
+                    prev -> next = cur -> next;
+                    cur -> next = NULL;
+                    new_last -> next = cur;
+                    new_last = new_last -> next;
+                    cur = prev->next;
+                }
+            }
+        }
+        else
+        {
+            prev = cur;
+        }
+    if(new_last != last && (last -> data) % 2 != 0 ) // move last odd node to end
+    {
+        prev -> next  = last -> next;
+        new_last -> next = last;
+        last -> next = NULL;
+    }
+    
+    
+}
 
 int main()
 {
