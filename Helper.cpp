@@ -38,3 +38,9 @@ reverse(word.begin(),word.end());
 /* Reverse words*/
 
 -----------------------------------------------------------------------
+
+/* Get the index of first occurrence of x */
+int *low = lower_bound(arr, arr+n, x);
+
+similary higher_bound
+-----------------------------------------------------------------------
